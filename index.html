@@ -1,0 +1,134 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+body { padding:0; margin:0; }
+</style>
+<div style="display:flex;height:100vh;flex-direction:column">
+	<div style="display:flex;justify-content:center">
+		<button id="lbtn">◀</button>
+		<input id="numin" type="text" value="1" style="width:30px">
+		<button id="rbtn">▶</button>
+	</div>
+	<iframe id="frame" src="https://2e.aonprd.com/Equipment.aspx?ID=833" style="flex-grow:1">
+	</iframe>
+</div>
+<script>
+const urls = [
+"https://2e.aonprd.com/Equipment.aspx?ID=756",
+"https://2e.aonprd.com/Equipment.aspx?ID=1385",
+"https://2e.aonprd.com/Spells.aspx?ID=135",
+"https://2e.aonprd.com/Spells.aspx?ID=70",
+"https://2e.aonprd.com/Spells.aspx?ID=200",
+"https://2e.aonprd.com/Spells.aspx?ID=904",
+"https://2e.aonprd.com/Spells.aspx?ID=980",
+"https://2e.aonprd.com/Spells.aspx?ID=989",
+"https://2e.aonprd.com/Spells.aspx?ID=290",
+"https://2e.aonprd.com/Spells.aspx?ID=373",
+"https://2e.aonprd.com/Spells.aspx?ID=1026",
+"https://2e.aonprd.com/Equipment.aspx?ID=352",
+"https://2e.aonprd.com/Equipment.aspx?ID=749",
+"https://2e.aonprd.com/Equipment.aspx?ID=131",
+"https://2e.aonprd.com/Equipment.aspx?ID=828",
+"https://2e.aonprd.com/Equipment.aspx?ID=127",
+"https://2e.aonprd.com/Equipment.aspx?ID=784",
+"https://2e.aonprd.com/Equipment.aspx?ID=121",
+"https://2e.aonprd.com/Equipment.aspx?ID=129",
+"https://2e.aonprd.com/Equipment.aspx?ID=833",
+"https://2e.aonprd.com/Equipment.aspx?ID=1407",
+"https://2e.aonprd.com/Equipment.aspx?ID=90",
+"https://2e.aonprd.com/Equipment.aspx?ID=96",
+"https://2e.aonprd.com/Equipment.aspx?ID=84",
+"https://2e.aonprd.com/Equipment.aspx?ID=1461",
+"https://2e.aonprd.com/Equipment.aspx?ID=91",
+"https://2e.aonprd.com/Equipment.aspx?ID=76",
+"https://2e.aonprd.com/Equipment.aspx?ID=686",
+"https://2e.aonprd.com/Equipment.aspx?ID=1460",
+"https://2e.aonprd.com/Equipment.aspx?ID=1257",
+"https://2e.aonprd.com/Equipment.aspx?ID=278",
+"https://2e.aonprd.com/Equipment.aspx?ID=281",
+"https://2e.aonprd.com/Equipment.aspx?ID=288",
+"https://2e.aonprd.com/Equipment.aspx?ID=287",
+"https://2e.aonprd.com/Equipment.aspx?ID=1388",
+"https://2e.aonprd.com/Equipment.aspx?ID=280",
+"https://2e.aonprd.com/Equipment.aspx?ID=1131",
+"https://2e.aonprd.com/Equipment.aspx?ID=1129",
+"https://2e.aonprd.com/Equipment.aspx?ID=167",
+"https://2e.aonprd.com/Equipment.aspx?ID=1244",
+"https://2e.aonprd.com/Equipment.aspx?ID=1253",
+"https://2e.aonprd.com/Equipment.aspx?ID=1286",
+"https://2e.aonprd.com/Equipment.aspx?ID=1198",
+"https://2e.aonprd.com/Equipment.aspx?ID=1027",
+"https://2e.aonprd.com/Equipment.aspx?ID=192",
+"https://2e.aonprd.com/Equipment.aspx?ID=1005",
+"https://2e.aonprd.com/Equipment.aspx?ID=1234",
+"https://2e.aonprd.com/Equipment.aspx?ID=237",
+"https://2e.aonprd.com/Equipment.aspx?ID=227",
+"https://2e.aonprd.com/Equipment.aspx?ID=1137",
+"https://2e.aonprd.com/Equipment.aspx?ID=1032",
+"https://2e.aonprd.com/Equipment.aspx?ID=1117",
+"https://2e.aonprd.com/Equipment.aspx?ID=1434",
+"https://2e.aonprd.com/Equipment.aspx?ID=965",
+"https://2e.aonprd.com/Equipment.aspx?ID=1040",
+"https://2e.aonprd.com/Equipment.aspx?ID=416",
+"https://2e.aonprd.com/Equipment.aspx?ID=1436",
+"https://2e.aonprd.com/Equipment.aspx?ID=1435",
+"https://2e.aonprd.com/Equipment.aspx?ID=967",
+"https://2e.aonprd.com/Equipment.aspx?ID=745",
+"https://2e.aonprd.com/Equipment.aspx?ID=409",
+"https://2e.aonprd.com/Equipment.aspx?ID=417",
+"https://2e.aonprd.com/Equipment.aspx?ID=426",
+"https://2e.aonprd.com/Equipment.aspx?ID=443",
+"https://2e.aonprd.com/Equipment.aspx?ID=467",
+"https://2e.aonprd.com/Equipment.aspx?ID=436",
+"https://2e.aonprd.com/Equipment.aspx?ID=444",
+"https://2e.aonprd.com/Equipment.aspx?ID=738",
+"https://2e.aonprd.com/Equipment.aspx?ID=510",
+"https://2e.aonprd.com/Equipment.aspx?ID=513",
+"https://2e.aonprd.com/Equipment.aspx?ID=422",
+"https://2e.aonprd.com/Equipment.aspx?ID=472",
+"https://2e.aonprd.com/Equipment.aspx?ID=423",
+"https://2e.aonprd.com/Equipment.aspx?ID=429",
+"https://2e.aonprd.com/Equipment.aspx?ID=430",
+"https://2e.aonprd.com/Equipment.aspx?ID=1317",
+"https://2e.aonprd.com/Equipment.aspx?ID=454",
+"https://2e.aonprd.com/Equipment.aspx?ID=732",
+"https://2e.aonprd.com/Equipment.aspx?ID=425",
+"https://2e.aonprd.com/Equipment.aspx?ID=1299",
+"https://2e.aonprd.com/Equipment.aspx?ID=455",
+"https://2e.aonprd.com/Equipment.aspx?ID=419",
+"https://2e.aonprd.com/Equipment.aspx?ID=441",
+"https://2e.aonprd.com/Equipment.aspx?ID=462",
+"https://2e.aonprd.com/Equipment.aspx?ID=1073",
+"https://2e.aonprd.com/Equipment.aspx?ID=1077",
+"https://2e.aonprd.com/Equipment.aspx?ID=1240",
+"https://2e.aonprd.com/Equipment.aspx?ID=265",
+"https://2e.aonprd.com/Equipment.aspx?ID=1085",
+"https://2e.aonprd.com/Equipment.aspx?ID=507",
+"https://2e.aonprd.com/Equipment.aspx?ID=1037",
+"https://2e.aonprd.com/Equipment.aspx?ID=259",
+"https://2e.aonprd.com/Equipment.aspx?ID=1081",
+"https://2e.aonprd.com/Equipment.aspx?ID=269",
+"https://2e.aonprd.com/Equipment.aspx?ID=257",
+"https://2e.aonprd.com/Equipment.aspx?ID=751",
+"https://2e.aonprd.com/Equipment.aspx?ID=1450"
+];
+numin.onchange = () => {
+	let n = parseInt(numin.value);
+	console.log('onchange:');
+	console.log(n);
+	if (isNaN(n)) n=1;
+	if (n < 1) n=1;
+	if (n > urls.length) n=urls.length;
+	numin.value = n;
+	frame.src = urls[n-1];
+};
+lbtn.onclick = () => {
+	console.log('l');
+	numin.value=parseInt(numin.value)-1; numin.onchange();
+};
+rbtn.onclick = () => {
+	console.log('r');
+	numin.value=parseInt(numin.value)+1;
+	numin.onchange();
+};
+</script>
